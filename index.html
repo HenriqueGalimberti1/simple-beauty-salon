@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda Fácil - Salão de Beleza</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- ===== CABEÇALHO ===== -->
+        <header class="header">
+            <h1>Salão de Beleza 💇‍♀️</h1>
+            <p>Beleza que cabe no seu dia a dia</p>
+            <div class="hours-badge">
+                ⏰ Segunda a Sábado • 9h – 20h
+            </div>
+        </header>
+
+        <!-- ===== NAVEGAÇÃO ===== -->
+        <nav class="main-nav" aria-label="Navegação principal">
+            <ul>
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#servicos">Serviços</a></li>
+                <li><a href="#horarios">Horários</a></li>
+                <li><a href="#agendamento">Agendamento</a></li>
+            </ul>
+        </nav>
+
+        <!-- ===== CONTEÚDO PRINCIPAL ===== -->
+        <main>
+            <!-- SEÇÃO SOBRE -->
+            <section id="sobre" class="about">
+                <h2>✨ Seu salão de confiança</h2>
+                <p>
+                    Há 10 anos transformando a autoestima das nossas clientes com carinho e profissionalismo.
+                    Agende seu horário e venha se sentir ainda mais linda!
+                </p>
+                <p>
+                    <strong>📍 Rua das Flores, 123 - Centro | 📞 (11) 99999-9999</strong>
+                </p>
+            </section>
+
+            <!-- SEÇÃO SERVIÇOS -->
+            <section id="servicos" class="services-section">
+                <h2>💅 Nossos Serviços</h2>
+                <div class="services-grid" id="servicesList">
+                    <!-- Injetado via JavaScript -->
+                </div>
+            </section>
+
+            <!-- SEÇÃO HORÁRIOS -->
+            <section id="horarios" class="hours-section">
+                <h2>📅 Horários de Atendimento</h2>
+                <div class="hours-grid" id="hoursList">
+                    <!-- Injetado via JavaScript -->
+                </div>
+            </section>
+
+            <!-- SEÇÃO FORMULÁRIO -->
+            <section id="agendamento" class="form-section">
+                <h2>📝 Solicite seu Agendamento</h2>
+                <form id="scheduleForm" novalidate>
+                    <!-- Linha 1: Nome e Telefone -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="clientName">Seu nome *</label>
+                            <input type="text" id="clientName" placeholder="Ex: Ana Silva" required>
+                            <span class="error-message" id="nameError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="clientPhone">WhatsApp / Telefone *</label>
+                            <input type="tel" id="clientPhone" placeholder="(11) 99999-9999" required>
+                            <span class="error-message" id="phoneError"></span>
+                        </div>
+                    </div>
+
+                    <!-- Serviço -->
+                    <div class="form-group">
+                        <label for="serviceSelect">Escolha o serviço *</label>
+                        <select id="serviceSelect" required>
+                            <option value="">-- Selecione --</option>
+                        </select>
+                        <span class="error-message" id="serviceError"></span>
+                    </div>
+
+                    <!-- Linha 2: Data e Hora -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="dateSelect">Data *</label>
+                            <input type="date" id="dateSelect" required>
+                            <span class="error-message" id="dateError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="timeSelect">Horário *</label>
+                            <input type="time" id="timeSelect" required>
+                            <span class="error-message" id="timeError"></span>
+                        </div>
+                    </div>
+
+                    <!-- Observações -->
+                    <div class="form-group">
+                        <label for="observations">Observações (opcional)</label>
+                        <textarea id="observations" placeholder="Alguma preferência ou alergia?"></textarea>
+                    </div>
+
+                    <!-- Botão -->
+                    <button type="submit" class="btn-submit">📩 Enviar solicitação</button>
+                </form>
+
+                <!-- Feedback -->
+                <div id="feedback" class="feedback"></div>
+            </section>
+        </main>
+
+        <!-- ===== RODAPÉ ===== -->
+        <footer class="footer">
+            <p>&copy; 2026 Agenda Fácil - Todos os direitos reservados</p>
+            <p>
+                <a href="#sobre">Sobre</a> | 
+                <a href="#servicos">Serviços</a> | 
+                <a href="#agendamento">Agendamento</a>
+            </p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
