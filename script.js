@@ -46,8 +46,8 @@ function renderHours() {
     const container = document.getElementById('hoursList');
     if (!container) return;
     const display = [
-        { day: 'Segunda a Sexta', time: '9h – 20h' },
-        { day: 'Sábado', time: '8h – 18h' },
+        { day: 'Segunda a Sexta', time: '9h - 20h' },
+        { day: 'Sábado', time: '8h - 18h' },
         { day: 'Domingo', time: 'Fechado' }
     ];
     container.innerHTML = display.map(item => `
@@ -64,15 +64,13 @@ function renderHours() {
 function populateServiceSelect() {
     const select = document.getElementById('serviceSelect');
     if (!select) return;
-    select.innerHTML = ''; // limpa
+    select.innerHTML = `<option value="" selected disabled>-- Selecione um serviço --</option>`; // reinicia com opção vazia
     servicesData.forEach(service => {
         const opt = document.createElement('option');
         opt.value = service.id;
         opt.textContent = `${service.name} - ${service.price}`;
         select.appendChild(opt);
     });
-    // Seleciona o primeiro
-    if (select.options.length > 0) select.selectedIndex = 0;
 }
 
 // =============================================
@@ -100,14 +98,15 @@ function updateTimeSlots(dateStr) {
     if (!timeSelect) return;
 
     // Limpa
-    timeSelect.innerHTML = '<option value="">-- Selecione um horário --</option>';
+    timeSelect.innerHTML = '<option value="" selected disabled>-- Selecione um horário --</option>';
     timeError.classList.remove('visible');
     timeSelect.classList.remove('error');
 
     if (!dateStr) return;
 
-    const date = new Date(dateStr);
-    const dayOfWeek = date.getDay(); // 0=domingo
+    const [y, m, d] = dateStr.split('-').map(Number);
+    const date = new Date(y, m - 1, d);
+    const dayOfWeek = date.getDay(); // 0 = domingo
 
     const hours = hoursMap[dayOfWeek];
     if (!hours) {
@@ -126,10 +125,9 @@ function updateTimeSlots(dateStr) {
     // Se for hoje, filtra horários já passados (com margem de 5 min)
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    const isToday = date.getTime() === today.getTime();
+    const isToday = dayOfWeek === today.getDay();
     if (isToday) {
-        const now = new Date();
-        const currentMinutes = now.getHours() * 60 + now.getMinutes() + 5; // margem
+        const currentMinutes = today.getHours() * 60 + today.getMinutes() + 5; // margem
         slots = slots.filter(time => {
             const [h, m] = time.split(':').map(Number);
             return (h * 60 + m) >= currentMinutes;
@@ -151,9 +149,6 @@ function updateTimeSlots(dateStr) {
         opt.textContent = time;
         timeSelect.appendChild(opt);
     });
-
-    // Seleciona o primeiro disponível
-    if (timeSelect.options.length > 1) timeSelect.selectedIndex = 1;
 }
 
 // =============================================
@@ -177,7 +172,10 @@ function validateField(inputId, errorId, validator, msg) {
 }
 const isValidName = v => v.trim().length >= 3 && /^[a-zA-ZÀ-ÿ\s]+$/.test(v.trim());
 const isValidPhone = v => v.replace(/\D/g, '').length >= 10;
-const isValidDate = v => new Date(v) >= new Date(new Date().setHours(0,0,0,0));
+const isValidDate = v => {
+    const [y, m, d] = v.split("-").map(Number);
+    return new Date(y, m - 1, d) >= new Date(new Date().setHours(0, 0, 0, 0));
+};
 const isValidTime = v => v && v !== '';
 const isValidService = v => v && v !== '';
 
