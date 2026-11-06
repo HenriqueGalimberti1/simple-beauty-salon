@@ -1,0 +1,93 @@
+[
+  {
+    "id": 1,
+    "nome": "Corte Feminino & Finalização",
+    "preco": 75.00,
+    "duracao_minutos": 45,
+    "categoria": "Cabelo",
+    "icone": "fa-scissors",
+    "descricao": "Corte personalizado de acordo com o visagismo do seu rosto, lavado e escova inclusos."
+  },
+  {
+    "id": 2,
+    "nome": "Corte Masculino & Barba Terapia",
+    "preco": 60.00,
+    "duracao_minutos": 35,
+    "categoria": "Cabelo",
+    "icone": "fa-user-tie",
+    "descricao": "Corte na tesoura ou máquina com acabamento de navalha e toalha quente na barba."
+  },
+  {
+    "id": 3,
+    "nome": "Escova Modeladora & Prancha",
+    "preco": 55.00,
+    "duracao_minutos": 45,
+    "categoria": "Cabelo",
+    "icone": "fa-wind",
+    "descricao": "Lavagem com shampoo nutritivo, secagem, escovação e acabamento com prancha de íons."
+  },
+  {
+    "id": 4,
+    "nome": "Coloração & Mechas Iluminadas",
+    "preco": 160.00,
+    "duracao_minutos": 90,
+    "categoria": "Cabelo",
+    "icone": "fa-palette",
+    "descricao": "Técnica de morena iluminada ou mechas pontuais com tonalização e matização de alto brilho."
+  },
+  {
+    "id": 5,
+    "nome": "Hidratação Profunda & Cronograma",
+    "preco": 85.00,
+    "duracao_minutos": 45,
+    "categoria": "Cabelo",
+    "icone": "fa-droplet",
+    "descricao": "Tratamento intensivo de reposição hídrica e lipídica com máscara importada e vapor de ozônio."
+  },
+  {
+    "id": 6,
+    "nome": "Manicure Spa Completa",
+    "preco": 40.00,
+    "duracao_minutos": 40,
+    "categoria": "Unhas",
+    "icone": "fa-hand-sparkles",
+    "descricao": "Cutilagem funda e delicada, esfoliação com óleos essenciais e esmaltação perfeita."
+  },
+  {
+    "id": 7,
+    "nome": "Pedicure Spa & Relaxamento",
+    "preco": 50.00,
+    "duracao_minutos": 45,
+    "categoria": "Unhas",
+    "icone": "fa-shoe-prints",
+    "descricao": "Remoção de calosidades, hidratação de calcanhares com massagem podal relaxante."
+  },
+  {
+    "id": 8,
+    "nome": "Alongamento de Unhas em Gel",
+    "preco": 140.00,
+    "duracao_minutos": 75,
+    "categoria": "Unhas",
+    "icone": "fa-hand",
+    "descricao": "Extensão natural com fibra de vidro ou gel moldado, com resistência e durabilidade superior."
+  },
+  {
+    "id": 9,
+    "nome": "Design de Sobrancelhas com Henna",
+    "preco": 45.00,
+    "duracao_minutos": 30,
+    "categoria": "Estética",
+    "icone": "fa-eye",
+    "descricao": "Mapeamento facial com paquímetro para arqueamento ideal e pigmentação de longa duração."
+  },
+  {
+    "id": 10,
+    "nome": "Limpeza de Pele Profunda",
+    "preco": 120.00,
+    "duracao_minutos": 60,
+    "categoria": "Estética",
+    "icone": "fa-spa",
+    "descricao": "Higienização, vapor de ozônio, extração de cravos, alta frequência e máscara calmante."
+  }
+]
+

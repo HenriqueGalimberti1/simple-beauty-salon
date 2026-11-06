@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda Fácil • Salão de Beleza & Estética</title>
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Estilo Principal -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Topbar Elegante & Controle de Tema -->
+    <div class="topbar">
+        <div class="topbar-content">
+            <div class="topbar-brand">
+                <i class="fas fa-spa text-primary"></i>
+                <span class="brand-title">Agenda Fácil</span>
+                <span class="brand-sub">Studio & Spa</span>
+            </div>
+            <div class="topbar-actions">
+                <button type="button" class="btn-topbar theme-toggle-btn" id="themeToggleBtn" aria-label="Alternar tema claro/escuro">
+                    <i class="fas fa-moon" id="themeIcon"></i> <span id="themeText">Modo Escuro</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- CABEÇALHO HERO -->
+        <header class="header">
+            <div class="header-overlay"></div>
+            <div class="header-content">
+                <div class="brand-badge"><i class="fas fa-sparkles"></i> Studio & Spa Premium</div>
+                <h1>Agenda Fácil</h1>
+                <p>Beleza, elegância e bem-estar que cabem no seu dia a dia.</p>
+                <div class="header-info-tags">
+                    <span class="badge"><i class="fas fa-clock"></i> Seg a Sex: 09h – 20h • Sáb: 08h – 18h</span>
+                    <span class="badge"><i class="fas fa-map-marker-alt"></i> Vitória - ES • Salão de Beleza</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- NAVEGAÇÃO PRINCIPAL -->
+        <nav class="main-nav" aria-label="Navegação principal">
+            <ul>
+                <li><a href="#sobre"><i class="fas fa-heart"></i> Sobre</a></li>
+                <li><a href="#servicos"><i class="fas fa-spa"></i> Serviços</a></li>
+                <li><a href="#horarios"><i class="fas fa-calendar-alt"></i> Horários</a></li>
+                <li><a href="#agendamento"><i class="fas fa-calendar-plus"></i> Novo Agendamento</a></li>
+                <li><a href="#painel-agendamentos"><i class="fas fa-chart-line"></i> Painel de Gestão</a></li>
+            </ul>
+        </nav>
+
+        <!-- CONTEÚDO PRINCIPAL -->
+        <main>
+            <!-- SEÇÃO: SOBRE -->
+            <section id="sobre" class="about card-elevated">
+                <div class="about-icon"><i class="fas fa-gem"></i></div>
+                <div class="about-text">
+                    <h2>✨ Seu Espaço Exclusivo de Autocuidado</h2>
+                    <p>Há mais de 10 anos elevando sua autoestima com os mais modernos protocolos capilares, estética avançada e spa das mãos e pés. Nosso compromisso é aliar técnicas de excelência, pontualidade britânica e produtos de alta performance.</p>
+                    <div class="about-contact-badges">
+                        <span><i class="fas fa-location-dot"></i> Av. Vitória, 1200 - Bento Ferreira, Vitória - ES</span>
+                        <span><i class="fab fa-whatsapp"></i> (27) 99888-2026</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEÇÃO: SERVIÇOS -->
+            <section id="servicos" class="services-section">
+                <div class="section-title-wrap">
+                    <div>
+                        <h2>Catálogo de Serviços Especializados</h2>
+                        <p>Selecione um serviço para conferir valores, duração e agendar diretamente</p>
+                    </div>
+                    <!-- Filtro por Categoria -->
+                    <div class="category-filter" id="categoryFilter" role="group" aria-label="Filtrar por categoria">
+                        <button type="button" class="filter-pill active" data-cat="todos">Todos (10)</button>
+                        <button type="button" class="filter-pill" data-cat="Cabelo">Cabelo</button>
+                        <button type="button" class="filter-pill" data-cat="Unhas">Unhas</button>
+                        <button type="button" class="filter-pill" data-cat="Estética">Estética</button>
+                    </div>
+                </div>
+
+                <!-- Loading Spinner Discreto (apenas durante carregamento) -->
+                <div id="servicesLoading" class="services-loading-spinner" hidden>
+                    <i class="fas fa-circle-notch fa-spin"></i>
+                    <span>Carregando catálogo de serviços...</span>
+                </div>
+
+                <!-- Grid de Serviços preenchido via JavaScript -->
+                <div class="services-grid" id="servicesList" aria-live="polite"></div>
+
+                <!-- Estado de Erro / Retentativa -->
+                <div id="servicesError" class="services-error-box" hidden>
+                    <i class="fas fa-triangle-exclamation error-icon"></i>
+                    <h3>Falha ao carregar catálogo de serviços</h3>
+                    <p id="servicesErrorMessage">Não foi possível carregar os serviços do salão.</p>
+                    <div class="error-actions">
+                        <button type="button" class="btn-primary" id="btnRetryServices">
+                            <i class="fas fa-arrow-rotate-right"></i> Tentar Novamente
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEÇÃO: HORÁRIOS DE ATENDIMENTO -->
+            <section id="horarios" class="hours-section card-elevated">
+                <div class="hours-header">
+                    <h2><i class="fas fa-clock"></i> Horários de Funcionamento</h2>
+                    <p>Atendimento com agendamento prévio para garantir pontualidade e dedicação exclusiva.</p>
+                </div>
+                <div class="hours-grid" id="hoursList"></div>
+            </section>
+
+            <!-- SEÇÃO: FORMULÁRIO DE NOVO AGENDAMENTO -->
+            <section id="agendamento" class="form-section card-elevated">
+                <div class="form-header">
+                    <span class="sub-badge"><i class="fas fa-calendar-check"></i> Agilidade & Precisão</span>
+                    <h2>Solicite seu Agendamento Online</h2>
+                    <p>Preencha os dados abaixo. Nosso sistema valida em tempo real conflitos de horário e intervalos necessários.</p>
+                </div>
+
+                <form id="scheduleForm" novalidate>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="clientName"><i class="fas fa-user"></i> Nome Completo <span class="required">*</span></label>
+                            <input type="text" id="clientName" placeholder="Ex: Ana Maria Silva" required autocomplete="name">
+                            <span class="error-message" id="nameError" aria-live="polite"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="clientPhone"><i class="fab fa-whatsapp"></i> WhatsApp / Telefone <span class="required">*</span></label>
+                            <input type="tel" id="clientPhone" placeholder="(27) 99999-9999" maxlength="15" required autocomplete="tel">
+                            <span class="error-message" id="phoneError" aria-live="polite"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="serviceSelect"><i class="fas fa-tag"></i> Escolha o Serviço Desejado <span class="required">*</span></label>
+                        <select id="serviceSelect" required>
+                            <option value="" selected disabled>Carregando serviços disponíveis...</option>
+                        </select>
+                        <span class="error-message" id="serviceError" aria-live="polite"></span>
+                        <div class="service-preview" id="servicePreview" hidden>
+                            <span class="preview-badge" id="previewCategory"><i class="fas fa-layer-group"></i> Cabelo</span>
+                            <span class="preview-badge" id="previewDuration"><i class="fas fa-stopwatch"></i> Duração: 45 min</span>
+                            <span class="preview-badge price" id="previewPrice"><i class="fas fa-brazilian-real-sign"></i> R$ 75,00</span>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="dateSelect"><i class="fas fa-calendar-day"></i> Data do Atendimento <span class="required">*</span></label>
+                            <input type="date" id="dateSelect" required>
+                            <span class="error-message" id="dateError" aria-live="polite"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="timeSelect"><i class="fas fa-clock"></i> Horário Disponível <span class="required">*</span></label>
+                            <select id="timeSelect" required>
+                                <option value="" selected disabled>Selecione primeiro uma data válida</option>
+                            </select>
+                            <span class="error-message" id="timeError" aria-live="polite"></span>
+                        </div>
+                    </div>
+
+                    <!-- Resumo Dinâmico de Janela de Atendimento -->
+                    <div class="slot-summary-box" id="slotSummaryBox" hidden>
+                        <i class="fas fa-hourglass-half"></i>
+                        <span id="slotSummaryText">Previsão: atendimento das 14:00 às 14:45</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="observations"><i class="fas fa-comment-dots"></i> Observações ou Preferências (Opcional)</label>
+                        <textarea id="observations" rows="2" placeholder="Alguma alergia a produtos químicos, preferência por profissional ou detalhe específico?"></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-submit" id="btnSubmitForm">
+                            <i class="fas fa-check-circle"></i> Confirmar e Salvar Agendamento
+                        </button>
+                        <button type="reset" class="btn-reset" id="btnResetForm">
+                            <i class="fas fa-eraser"></i> Limpar
+                        </button>
+                    </div>
+                </form>
+
+                <div id="feedback" class="feedback" aria-live="polite"></div>
+            </section>
+
+            <!-- SEÇÃO: PAINEL DE GESTÃO DE AGENDAMENTOS -->
+            <section id="painel-agendamentos" class="dashboard-section card-elevated">
+                <div class="dashboard-header">
+                    <div class="header-titles">
+                        <span class="sub-badge"><i class="fas fa-calendar-check"></i> Gestão de Atendimentos</span>
+                        <h2>Painel de Agendamentos</h2>
+                        <p>Acompanhe e gerencie todos os horários e clientes agendados.</p>
+                    </div>
+                    <div class="dashboard-top-actions">
+                        <button type="button" class="btn-refresh" id="btnReloadAppointments" title="Recarregar agendamentos">
+                            <i class="fas fa-arrows-rotate"></i> <span>Atualizar</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- CARDS DE MÉTRICAS CALCULADAS EM TEMPO REAL -->
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-icon purple"><i class="fas fa-calendar-check"></i></div>
+                        <div class="metric-info">
+                            <span class="metric-label">Agendamentos Visíveis</span>
+                            <span class="metric-value" id="metricTotal">0</span>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon green"><i class="fas fa-money-bill-wave"></i></div>
+                        <div class="metric-info">
+                            <span class="metric-label">Faturamento Previsto</span>
+                            <span class="metric-value" id="metricRevenue">R$ 0,00</span>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon rose"><i class="fas fa-award"></i></div>
+                        <div class="metric-info">
+                            <span class="metric-label">Serviço Mais Procurado</span>
+                            <span class="metric-value sm" id="metricTopService">-</span>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon teal"><i class="fas fa-clock-rotate-left"></i></div>
+                        <div class="metric-info">
+                            <span class="metric-label">Confirmados / Pendentes</span>
+                            <span class="metric-value sm" id="metricStatusSplit">0 / 0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BARRA DE CONTROLE: BUSCA, FILTRO E ORDENAÇÃO -->
+                <div class="dashboard-controls">
+                    <div class="search-input-wrap">
+                        <i class="fas fa-magnifying-glass search-icon"></i>
+                        <input type="text" id="appointmentSearch" placeholder="Buscar por cliente ou serviço..." aria-label="Buscar agendamento">
+                        <button type="button" class="btn-clear-search" id="btnClearSearch" aria-label="Limpar busca" hidden>&times;</button>
+                    </div>
+
+                    <div class="filter-controls-wrap">
+                        <div class="control-group">
+                            <label for="filterStatus"><i class="fas fa-filter"></i> Status:</label>
+                            <select id="filterStatus">
+                                <option value="todos">Todos os Status</option>
+                                <option value="Confirmado">Confirmado</option>
+                                <option value="Pendente">Pendente</option>
+                                <option value="Cancelado">Cancelado</option>
+                            </select>
+                        </div>
+                        <div class="control-group">
+                            <label for="sortBy"><i class="fas fa-arrow-down-short-wide"></i> Ordenar por:</label>
+                            <select id="sortBy">
+                                <option value="data-asc">Data (mais próximos)</option>
+                                <option value="data-desc">Data (mais distantes)</option>
+                                <option value="valor-desc">Maior Valor (R$)</option>
+                                <option value="valor-asc">Menor Valor (R$)</option>
+                                <option value="nome-asc">Cliente (A - Z)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TABELA / LISTA DE AGENDAMENTOS RESPONSIVA -->
+                <div class="table-container" role="region" aria-label="Tabela de Agendamentos" tabindex="0">
+                    <table class="appointments-table" id="appointmentsTable" hidden>
+                        <thead>
+                            <tr>
+                                <th>Cliente</th>
+                                <th>Telefone</th>
+                                <th>Serviço</th>
+                                <th>Data & Horário</th>
+                                <th>Duração</th>
+                                <th>Valor</th>
+                                <th>Status</th>
+                                <th class="text-center">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="appointmentsTableBody">
+                            <!-- Inserido dinamicamente via script.js -->
+                        </tbody>
+                    </table>
+
+                    <!-- Estado Vazio Inicial -->
+                    <div class="empty-state" id="emptyState">
+                        <div class="empty-icon"><i class="fas fa-calendar-check"></i></div>
+                        <h3>Nenhum agendamento cadastrado</h3>
+                        <p id="emptyStateMsg">Ainda não há agendamentos registrados. Utilize o formulário acima para cadastrar o primeiro cliente.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- RODAPÉ -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>Agenda Fácil</h3>
+                    <p>Sistema Integrado de Gestão & Agendamento para Salão de Beleza.</p>
+                    <p class="discipline-tag">Multivix 2026 • Programação para Internet (2º Bimestre)</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Navegação</h4>
+                    <ul>
+                        <li><a href="#sobre">Sobre o Salão</a></li>
+                        <li><a href="#servicos">Catálogo de Serviços</a></li>
+                        <li><a href="#horarios">Horários de Atendimento</a></li>
+                        <li><a href="#agendamento">Novo Agendamento</a></li>
+                        <li><a href="#painel-agendamentos">Painel de Gestão</a></li>
+                    </ul>
+                </div>
+                <div class="footer-tech">
+                    <h4>Serviços em Destaque</h4>
+                    <div class="tech-pills">
+                        <span>Cortes Feminino & Masculino</span>
+                        <span>Coloração & Mechas</span>
+                        <span>Spa das Mãos & Pés</span>
+                        <span>Estética Facial</span>
+                        <span>Sobrancelhas com Henna</span>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Agenda Fácil - Todos os direitos reservados. Salão de Beleza & Spa.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- MODAL DE EDIÇÃO DE AGENDAMENTO -->
+    <div class="modal-backdrop" id="editModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="modalTitle"><i class="fas fa-pen-to-square"></i> Editar Agendamento</h3>
+                <button type="button" class="btn-close-modal" id="btnCloseModal" aria-label="Fechar modal">&times;</button>
+            </div>
+            <form id="editForm" novalidate>
+                <input type="hidden" id="editAppointmentId">
+                <div class="modal-body">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="editClientName"><i class="fas fa-user"></i> Nome do Cliente *</label>
+                            <input type="text" id="editClientName" required>
+                            <span class="error-message" id="editNameError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="editClientPhone"><i class="fab fa-whatsapp"></i> WhatsApp / Telefone *</label>
+                            <input type="tel" id="editClientPhone" required maxlength="15">
+                            <span class="error-message" id="editPhoneError"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="editServiceSelect"><i class="fas fa-tag"></i> Serviço *</label>
+                            <select id="editServiceSelect" required></select>
+                            <span class="error-message" id="editServiceError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="editStatusSelect"><i class="fas fa-flag"></i> Status *</label>
+                            <select id="editStatusSelect" required>
+                                <option value="Confirmado">Confirmado</option>
+                                <option value="Pendente">Pendente</option>
+                                <option value="Cancelado">Cancelado</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="editDateSelect"><i class="fas fa-calendar-day"></i> Data *</label>
+                            <input type="date" id="editDateSelect" required>
+                            <span class="error-message" id="editDateError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="editTimeSelect"><i class="fas fa-clock"></i> Horário *</label>
+                            <select id="editTimeSelect" required></select>
+                            <span class="error-message" id="editTimeError"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editObservations"><i class="fas fa-comment-dots"></i> Observações</label>
+                        <textarea id="editObservations" rows="2"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" id="btnCancelEdit">Cancelar</button>
+                    <button type="submit" class="btn-primary" id="btnSaveEdit">
+                        <i class="fas fa-floppy-disk"></i> Salvar Alterações
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL DE CONFIRMAÇÃO DE EXCLUSÃO -->
+    <div class="modal-backdrop" id="deleteConfirmModal" role="dialog" aria-modal="true" aria-labelledby="deleteModalTitle" hidden>
+        <div class="modal-card modal-sm">
+            <div class="modal-header">
+                <h3 id="deleteModalTitle"><i class="fas fa-trash-can text-danger"></i> Confirmar Exclusão</h3>
+                <button type="button" class="btn-close-modal" id="btnCloseDeleteModal" aria-label="Fechar modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Tem certeza de que deseja remover este agendamento?</p>
+                <div class="delete-item-preview" id="deleteItemPreview"></div>
+                <p class="text-muted"><small>Esta ação não pode ser desfeita.</small></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-secondary" id="btnCancelDelete">Cancelar</button>
+                <button type="button" class="btn-danger" id="btnConfirmDelete">
+                    <i class="fas fa-trash-can"></i> Excluir Registro
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTAINER DE NOTIFICAÇÕES TOAST -->
+    <div class="toast-container" id="toastContainer" aria-live="assertive" aria-atomic="true"></div>
+
+    <!-- Script JavaScript Principal -->
+    <script src="script.js"></script>
+</body>
+</html>

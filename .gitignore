@@ -1,0 +1,15 @@
+# Dependências
+node_modules/
+
+# Variáveis de ambiente locais (contém credenciais de banco)
+.env
+
+# Logs do sistema
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Arquivos de sistema operacional e IDEs
+.DS_Store
+Thumbs.db
+.vscode/

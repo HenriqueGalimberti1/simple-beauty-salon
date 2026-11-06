@@ -1,0 +1,30 @@
+{
+  "name": "agenda-facil-salao",
+  "version": "2.0.0",
+  "description": "Sistema de Agendamento para Salão de Beleza com Node.js, Express, Microsoft SQL Server e Vanilla JS moderno",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "dev": "nodemon server/server.js"
+  },
+  "keywords": [
+    "salao-de-beleza",
+    "agendamento",
+    "express",
+    "sql-server",
+    "multivix-2026",
+    "programacao-para-internet"
+  ],
+  "author": "Aluno Multivix",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mssql": "^10.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
+
