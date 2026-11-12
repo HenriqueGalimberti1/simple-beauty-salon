@@ -13,3 +13,7 @@ yarn-error.log*
 .DS_Store
 Thumbs.db
 .vscode/
+
+# Relatórios acadêmicos locais (não enviar ao GitHub)
+RELATORIO*
+*.docx
